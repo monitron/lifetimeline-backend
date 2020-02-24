@@ -1,10 +1,11 @@
 class EventsController < ApplicationController
   def index
-    render :json => Event.all
+    render :json => Event.all, methods: :story_ids
   end
 
   def show
-    render :json => Event.find(params[:id])
+    render :json => Event.includes(:events_stories).find(params[:id]),
+           methods: :story_ids
   end
 
   def create
